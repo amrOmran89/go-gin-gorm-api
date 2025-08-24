@@ -30,6 +30,6 @@ func GetDatabaseName() string {
 	case "production":
 		return GetEnvVar("DB_NAME", "prod.db")
 	default:
-		return GetEnvVar("DEV_DB_NAME", "dev.db")
+		return GetEnvVar("TEST_DB_NAME", "test.db")
 	}
 }

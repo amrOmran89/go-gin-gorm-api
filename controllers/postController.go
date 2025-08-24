@@ -16,7 +16,7 @@ func GetPost(c *gin.Context) {
 	initializers.DB.Find(&posts)
 
 	// send the posts to the api
-	c.JSON(http.StatusOK, gin.H{"posts": posts})
+	c.JSON(http.StatusOK, posts)
 }
 
 func CreatePost(c *gin.Context) {
@@ -36,7 +36,7 @@ func CreatePost(c *gin.Context) {
 		c.Status(http.StatusBadRequest)
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"created": true})
+	c.JSON(http.StatusCreated, gin.H{"post": "created"})
 }
 
 func GetPostById(c *gin.Context) {
@@ -45,5 +45,5 @@ func GetPostById(c *gin.Context) {
 	var post models.Post
 	initializers.DB.First(&post, id)
 
-	c.JSON(http.StatusOK, gin.H{"post": post})
+	c.JSON(http.StatusOK, post)
 }
