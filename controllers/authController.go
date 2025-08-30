@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	models "go-gin-gorm/entities"
 	"go-gin-gorm/initializers"
-	"go-gin-gorm/models"
 	"net/http"
 	"os"
 	"time"
@@ -40,7 +40,7 @@ func SignUp(c *gin.Context) {
 	}
 
 	// create the user in the database
-	var user = models.User{Email: body.Email, Password: string(hash)}
+	var user = models.UserEntity{Email: body.Email, Password: string(hash)}
 	result := initializers.DB.Create(&user)
 
 	if result.Error != nil {
@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 	}
 
 	// lookup requested user
-	var user models.User
+	var user models.UserEntity
 	initializers.DB.Find(&user, "email = ?", body.Email)
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid email or password"})
@@ -107,7 +107,7 @@ func Login(c *gin.Context) {
 }
 
 func GetAllUsers(c *gin.Context) {
-	var users []models.User
+	var users []models.UserEntity
 	initializers.DB.Find(&users)
 	c.JSON(http.StatusOK, users)
 }

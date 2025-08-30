@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	models "go-gin-gorm/entities"
 	"go-gin-gorm/initializers"
-	"go-gin-gorm/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +10,7 @@ import (
 
 func GetPost(c *gin.Context) {
 	// create posts variable
-	var posts []models.Post
+	var posts []models.PostEntity
 
 	// fetch the posts from the DB and assign it to the posts variable
 	initializers.DB.Find(&posts)
@@ -28,7 +28,7 @@ func CreatePost(c *gin.Context) {
 
 	c.Bind(&body)
 
-	post := models.Post{Title: body.Title, Body: body.Body}
+	post := models.PostEntity{Title: body.Title, Body: body.Body}
 
 	result := initializers.DB.Create(&post)
 
@@ -42,7 +42,7 @@ func CreatePost(c *gin.Context) {
 func GetPostById(c *gin.Context) {
 
 	var id = c.Param("id")
-	var post models.Post
+	var post models.PostEntity
 	initializers.DB.First(&post, id)
 
 	c.JSON(http.StatusOK, post)

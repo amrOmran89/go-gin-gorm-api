@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type User struct {
+type UserEntity struct {
 	gorm.Model
 	Email    string `gorm:"unique"`
 	Password string

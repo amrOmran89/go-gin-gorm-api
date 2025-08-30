@@ -1,7 +1,7 @@
 package initializers
 
 import (
-	"go-gin-gorm/models"
+	models "go-gin-gorm/entities"
 	"log"
 
 	"gorm.io/driver/sqlite"
@@ -20,7 +20,7 @@ func ConnectToDB() {
 		log.Fatal(err)
 	}
 
-	DB.AutoMigrate(&models.Post{})
-	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.PostEntity{})
+	DB.AutoMigrate(&models.UserEntity{})
 	log.Printf("Database connected successfully")
 }

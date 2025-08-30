@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"fmt"
+	models "go-gin-gorm/entities"
 	"go-gin-gorm/initializers"
-	"go-gin-gorm/models"
 	"net/http"
 	"os"
 	"time"
@@ -39,7 +39,7 @@ func RequireAuth(c *gin.Context) {
 			return
 		}
 
-		var user models.User
+		var user models.UserEntity
 		initializers.DB.First(&user, claims["sub"])
 		if user.ID == 0 {
 			fmt.Println("four")
